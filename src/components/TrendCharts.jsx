@@ -195,19 +195,26 @@ function MetricChart({
       };
 
   const datasets = [dataset];
-  if (threshold !== undefined && hasData) {
-    datasets.push({
-      label: "Limit",
-      data: chartValues.map(() => threshold),
-      borderColor: "rgba(148, 163, 184, 0.55)",
-      borderWidth: 1.5,
-      borderDash: [4, 5],
-      pointRadius: 0,
-      pointHoverRadius: 0,
-      fill: false,
-      tension: 0,
-    });
-  }
+
+  // Dashed limit line drawn across the whole chart, even with a single log
+  const limitLine = {
+    id: "limitLine",
+    beforeDatasetsDraw(chart) {
+      if (threshold === undefined) return;
+      const { ctx, chartArea, scales } = chart;
+      const y = scales.y.getPixelForValue(threshold);
+      if (y < chartArea.top || y > chartArea.bottom) return;
+      ctx.save();
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.6)";
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 5]);
+      ctx.beginPath();
+      ctx.moveTo(chartArea.left, y);
+      ctx.lineTo(chartArea.right, y);
+      ctx.stroke();
+      ctx.restore();
+    },
+  };
 
   const data = { labels: chartLabels, datasets };
   const options = {
@@ -225,6 +232,8 @@ function MetricChart({
         padding: 10,
         titleColor: "#8a94a6",
         bodyColor: "#e6edf7",
+        footerColor: "#8a94a6",
+        footerFont: { size: 12, weight: "500" },
         titleFont: { size: 12, weight: "500" },
         bodyFont: { size: 13, weight: "600" },
         boxWidth: 8,
@@ -233,6 +242,8 @@ function MetricChart({
         callbacks: {
           label: (ctx) =>
             ` ${ctx.dataset.label}: ${ctx.formattedValue}${unit ? ` ${unit}` : ""}`,
+          footer: () =>
+            threshold !== undefined ? `Limit: ${threshold}${unit ? ` ${unit}` : ""}` : "",
         },
       },
     },
@@ -245,6 +256,8 @@ function MetricChart({
       y: {
         min,
         max,
+        suggestedMin: threshold,
+        suggestedMax: threshold,
         ticks: { stepSize, color: "#64748b", font: { size: 12 }, padding: 8 },
         grid: { color: "rgba(255, 255, 255, 0.05)" },
         border: { display: false },
@@ -287,7 +300,7 @@ function MetricChart({
 
       {hasData ? (
         <div className="trend-card__chart">
-          <Chart data={data} options={options} />
+          <Chart data={data} options={options} plugins={[limitLine]} />
         </div>
       ) : (
         <p className="trend-card__empty">No data available.</p>
