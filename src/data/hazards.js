@@ -17,4 +17,8 @@ export const HAZARD_MAP = {
     hazard: "Altered Gravity",
     risk: "Cardiovascular deconditioning",
   },
+  radiation: {
+    hazard: "Space Radiation",
+    risk: "Cumulative radiation exposure",
+  },
 };

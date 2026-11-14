@@ -21,6 +21,15 @@ export function checkHealthWarnings(rawLogs) {
         message: "High resting heart rate detected",
       });
     }
+
+    // Radiation is optional: blank/missing values become 0 here and never warn.
+    if (Number(log.radiationDose) > HEALTH_THRESHOLDS.radiation.aboveMsv) {
+      warnings.push({
+        type: "radiation",
+        date: log.date,
+        message: "Elevated radiation dose detected",
+      });
+    }
   });
 
   // Sleep and exercise warnings

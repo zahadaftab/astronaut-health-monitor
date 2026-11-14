@@ -18,7 +18,7 @@ Astronauts log four things once a day — **sleep, mood, exercise, heart rate**.
 
 ## Warnings (rule-based)
 
-Example thresholds: sleep < 6 h for 3 days, mood ≤ 2, resting HR > 120, exercise < 20 min. Each warning is labeled with the hazard it relates to, e.g. *"⚠️ Isolation risk: low mood + poor sleep 3 days"*.
+Thresholds (all in `src/data/thresholds.js`): sleep < 7 h for 3 days, mood ≤ 2, exercise < 20 min for 3 days, resting HR > 100 bpm, radiation > 0.6 mSv/day. Each warning is labeled with the hazard it relates to, e.g. *"⚠️ Isolation risk: low mood + poor sleep 3 days"*.
 
 ## Run locally
 

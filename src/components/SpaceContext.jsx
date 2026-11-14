@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { HEALTH_THRESHOLDS as T } from "../data/thresholds.js";
 
 /* ---------- Hazard content ---------- */
 
@@ -46,18 +47,19 @@ const hazards = [
 ];
 
 /* ---------- Which check-in fields feed which hazard ----------
-   Edit this map to match your HazardTag component.
-   Distance is driven by logging consistency instead of a field. */
+   Matches hazards.js / metricTags.js (sleep + mood = Isolation).
+   Distance is driven by logging consistency instead of a field.
+   Environment has no daily-log field, so it shows tips only. */
 
 const HAZARD_METRICS = {
   radiation: ["radiationDose"],
-  isolation: ["mood"],
+  isolation: ["mood", "sleep"],
   distance: [],
   gravity: ["exercise", "heartRate"],
-  environment: ["sleep"],
+  environment: [],
 };
 
-/* ---------- Standards (edit to match mission requirements) ----------
+/* ---------- Standards (numbers come from thresholds.js) ----------
    isBelow:  value is outside standard (too low, or too high for dose/HR)
    critical: value is dangerous on its own
    worsens:  direction that counts as a negative trend            */
@@ -66,41 +68,41 @@ const METRICS = {
   sleep: {
     label: "Sleep",
     unit: "h",
-    target: "7h or more",
-    isBelow: (v) => v < 7,
-    critical: (v) => v < 4,
+    target: `${T.sleep.belowHours}h or more`,
+    isBelow: (v) => v < T.sleep.belowHours,
+    critical: (v) => v < T.sleep.criticalBelow,
     worsens: "down",
   },
   mood: {
     label: "Mood",
     unit: "/5",
-    target: "3 or higher",
-    isBelow: (v) => v < 3,
+    target: `above ${T.mood.atOrBelow}`,
+    isBelow: (v) => v <= T.mood.atOrBelow,
     critical: () => false,
     worsens: "down",
   },
   exercise: {
     label: "Exercise",
     unit: "m",
-    target: "60m or more",
-    isBelow: (v) => v < 60,
+    target: `${T.exercise.belowMinutes}m or more`,
+    isBelow: (v) => v < T.exercise.belowMinutes,
     critical: () => false,
     worsens: "down",
   },
   radiationDose: {
     label: "Radiation dose",
     unit: " mSv",
-    target: "0.6 mSv/day or less",
-    isBelow: (v) => v > 0.6,
-    critical: (v) => v > 1.3,
+    target: `${T.radiation.aboveMsv} mSv/day or less`,
+    isBelow: (v) => v > T.radiation.aboveMsv,
+    critical: (v) => v > T.radiation.criticalAbove,
     worsens: "up",
   },
   heartRate: {
     label: "Heart rate",
     unit: " bpm",
-    target: "50-90 bpm",
-    isBelow: (v) => v < 50 || v > 90,
-    critical: (v) => v < 40 || v > 110,
+    target: `${T.hr.aboveBpm} bpm or less at rest`,
+    isBelow: (v) => v > T.hr.aboveBpm,
+    critical: (v) => v > T.hr.criticalAbove,
     worsens: "up",
   },
 };
@@ -203,6 +205,9 @@ function evaluateLogging(logs) {
 function evaluateHazard(id, logs) {
   const results = HAZARD_METRICS[id].map((key) => evaluateMetric(key, logs));
   if (id === "distance") results.push(evaluateLogging(logs));
+  if (results.length === 0) {
+    return { level: "none", notes: ["Not tracked by daily logs"] };
+  }
 
   const level = results.reduce(
     (worst, r) => (STATUS[r.level].rank > STATUS[worst].rank ? r.level : worst),
