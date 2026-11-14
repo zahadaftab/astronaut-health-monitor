@@ -1,35 +1,32 @@
-// Warning thresholds — the ONE place these numbers live.
+// Prototype warning thresholds — the ONE place these numbers live.
 // Used by warningEngine.js (warnings + health score) and SpaceContext.jsx.
-// Where each number comes from: see SOURCES.md (numbers in [] = reference).
-// For monitoring trends in a prototype, not medical diagnosis.
+// These values are for monitoring trends, not medical diagnosis.
 
 export const HEALTH_THRESHOLDS = {
   sleep: {
-    targetHours: 8.5, // ISS crews are allotted 8.5 h [6][8]
-    belowHours: 6, // crews averaged ~6 h in space; 5–6 h impairs performance [7]
-    criticalBelow: 4, // project-defined
-    consecutiveDays: 3, // project-defined
+    belowHours: 7,
+    criticalBelow: 4,
+    consecutiveDays: 3,
   },
 
   mood: {
-    atOrBelow: 2, // project-defined (self-rated 1–5)
+    atOrBelow: 2,
   },
 
   exercise: {
-    targetMinutes: 120, // ~2 h/day on the ISS [4][5]
-    belowMinutes: 60, // project-defined: half of the NASA target
-    consecutiveDays: 3, // project-defined
+    belowMinutes: 20,
+    consecutiveDays: 3,
   },
 
   // Only apply this threshold to heart rate measured at rest.
   hr: {
-    aboveBpm: 100, // project-defined
-    criticalAbove: 120, // project-defined
+    aboveBpm: 100,
+    criticalAbove: 120,
   },
 
+  // mSv per day: green < 0.6, yellow 0.6–1.3, red > 1.3
   radiation: {
-    aboveMsv: 0.5, // per day: ISS crews get ~0.2–0.5 mSv/day [2][3]
-    criticalAbove: 1.0, // per day: ~1 mSv/day+ projected beyond low-Earth orbit [2]
-    careerLimitMsv: 600, // NASA career effective dose limit [1][2]
+    aboveMsv: 0.6,
+    criticalAbove: 1.3,
   },
 };

@@ -31,7 +31,7 @@ Human spaceflight poses many risks to the human body although it may not be obvi
 
 ## Warnings (rule-based)
 
-Thresholds (all in `src/data/thresholds.js`): sleep < 6 h for 3 days, exercise < 60 min for 3 days, radiation > 0.5 mSv/day (critical > 1.0) or > 600 mSv in total, mood ≤ 2, resting HR > 100 bpm. Where each number comes from, and which ones are our own choices, is in **[SOURCES.md](SOURCES.md)**. Each warning is labeled with the hazard it relates to, e.g. *"⚠️ Isolation risk: low mood + poor sleep 3 days"*.
+Thresholds (all in `src/data/thresholds.js`): sleep < 7 h for 3 days, mood ≤ 2, exercise < 20 min for 3 days, resting HR > 100 bpm, radiation > 0.6 mSv/day. Each warning is labeled with the hazard it relates to, e.g. *"⚠️ Isolation risk: low mood + poor sleep 3 days"*.
 
 ## Run locally
 
@@ -43,8 +43,6 @@ npm run dev
 Stack: React + Vite, Chart.js, localStorage (no backend).
 
 ## References
-
-Full reference list with the facts we checked: **[SOURCES.md](SOURCES.md)**
 
 - [NASA Human Research Program](https://www.nasa.gov/hrp/)
 - [NASA Biological & Physical Sciences (BPS) data](https://science.nasa.gov/biological-physical/data/)
