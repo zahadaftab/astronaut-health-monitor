@@ -32,6 +32,16 @@ export function checkHealthWarnings(rawLogs) {
     }
   });
 
+  // Radiation adds up: warn if recorded doses pass the NASA career limit.
+  const totalDose = logs.reduce((sum, log) => sum + (Number(log.radiationDose) || 0), 0);
+  if (totalDose > HEALTH_THRESHOLDS.radiation.careerLimitMsv) {
+    warnings.push({
+      type: "radiation",
+      date: logs[logs.length - 1].date,
+      message: `Total radiation dose ${totalDose.toFixed(1)} mSv is over the ${HEALTH_THRESHOLDS.radiation.careerLimitMsv} mSv career limit`,
+    });
+  }
+
   // Sleep and exercise warnings
   for (let i = 0; i <= logs.length - 3; i++) {
     const first = new Date(logs[i].date);
