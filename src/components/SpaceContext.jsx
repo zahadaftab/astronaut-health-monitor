@@ -50,15 +50,15 @@ const hazards = [
    Distance is driven by logging consistency instead of a field. */
 
 const HAZARD_METRICS = {
-  radiation: ["heartRate"],
+  radiation: ["radiationDose"],
   isolation: ["mood"],
   distance: [],
-  gravity: ["exercise"],
+  gravity: ["exercise", "heartRate"],
   environment: ["sleep"],
 };
 
 /* ---------- Standards (edit to match mission requirements) ----------
-   isBelow:  value is below standard
+   isBelow:  value is outside standard (too low, or too high for dose/HR)
    critical: value is dangerous on its own
    worsens:  direction that counts as a negative trend            */
 
@@ -86,6 +86,14 @@ const METRICS = {
     isBelow: (v) => v < 60,
     critical: () => false,
     worsens: "down",
+  },
+  radiationDose: {
+    label: "Radiation dose",
+    unit: " mSv",
+    target: "1 mSv/day or less",
+    isBelow: (v) => v > 1,
+    critical: (v) => v > 10,
+    worsens: "up",
   },
   heartRate: {
     label: "Heart rate",
@@ -148,7 +156,7 @@ function evaluateMetric(key, logs) {
   }
 
   // Still within standard, but heading the wrong way
-  if (earlier.length >= 2) {
+  if (earlier.length >= 2 && average(earlier) > 0) {
     const change = (average(recent) - average(earlier)) / average(earlier);
     const worsening = cfg.worsens === "down" ? change <= -0.1 : change >= 0.1;
     if (worsening) {
