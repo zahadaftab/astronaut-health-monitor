@@ -1,0 +1,81 @@
+/* CrewCheck design tokens — taken from the Figma v2 design.
+   Every color, size and spacing in the UI should come from here. */
+:root {
+  /* Surfaces */
+  --color-bg: #05070f;
+  --color-surface: #070a14;
+  --color-card: rgba(11, 16, 32, 0.65);
+  --color-raised: rgba(11, 16, 32, 0.8);
+  --color-line: rgba(255, 255, 255, 0.05);
+  --color-line-strong: rgba(255, 255, 255, 0.2);
+
+  /* Text */
+  --color-text: #e6edf7;
+  --color-text-soft: #cbd5e1;
+  --color-muted: #8a94a6;
+  --color-faint: #64748b;
+
+  /* Accent: only for actions and active states */
+  --color-accent: #2dd4bf;
+  --color-accent-hover: #5eead4;
+  --color-accent-soft: rgba(45, 212, 191, 0.1);
+  --color-on-accent: #05070f;
+
+  /* Status: only for health status */
+  --color-healthy: #2dd4bf;
+  --color-caution: #e8c77a;
+  --color-critical: #ff6b6b;
+  --color-critical-soft: rgba(255, 107, 107, 0.08);
+  --color-none: #64748b;
+
+  /* Metrics: icons, charts and dots */
+  --color-sleep: #a9b4f5;
+  --color-mood: #c4b5fd;
+  --color-exercise: #5eead4;
+  --color-heart: #ff6b6b;
+  --color-radiation: #2dd4bf;
+
+  /* Typography */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --text-xs: 13px;   /* labels, captions */
+  --text-sm: 15px;   /* body */
+  --text-md: 17px;   /* card titles, hero summary */
+  --text-lg: 28px;   /* page title */
+  --text-xl: 36px;   /* metric values */
+  --text-2xl: 48px;  /* hero status */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --tracking-tight: -0.02em;
+  --tracking-caps: 0.09em;
+
+  /* Spacing (8-point scale) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Radius */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 20px;
+  --radius-xl: 20px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+
+  /* Layout */
+  --sidebar-width: 64px;
+  --content-max: 1440px;
+  --touch-target: 44px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration: 180ms;
+
+  /* Focus ring for keyboard users */
+  --focus-ring: 0 0 0 3px rgba(143, 214, 210, 0.45);
+}
