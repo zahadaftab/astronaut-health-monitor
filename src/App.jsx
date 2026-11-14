@@ -33,7 +33,7 @@ function App() {
     <div className="container">
       <h1>🚀 Astronaut Health Monitor</h1>
       
-      {/* 1. Daily Log Form */}
+      {/* Step 6: Daily Log Form */}
       <div className="card">
         <h2>Daily Log Entry</h2>
         <form onSubmit={handleSubmit} className="log-form">
@@ -57,7 +57,7 @@ function App() {
         </form>
       </div>
 
-      {/* 2. Mission History */}
+      {/* Step 7: Mission History (Dashboard) */}
       <div className="card" style={{ marginTop: '30px' }}>
         <h2>Mission History</h2>
         {savedLogs.length === 0 ? (
@@ -73,7 +73,7 @@ function App() {
         )}
       </div>
 
-      {/* 3. Teammate's Graph */}
+      {/* Step 9: Graph Integration */}
       <div className="card" style={{ marginTop: '30px' }}>
         <h2>Sleep Trend Graph</h2>
         {savedLogs.length === 0 ? (
