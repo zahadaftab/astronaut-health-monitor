@@ -110,8 +110,7 @@ function MetricsChart({
   const Chart = kind === "bar" ? Bar : Line;
 
   return (
-    <section
-      style={{ background: "#1e293b", padding: "25px", borderRadius: "16px" }}
+    <section className="card"
     >
       <h2 style={{ marginTop: 0 }}>{title}</h2>
       <p style={{ color: "#94a3b8" }}>{subtitle}</p>
