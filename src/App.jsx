@@ -2,13 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import SleepTrendChart from "./components/SleepTrendChart";
 import { checkHealthWarnings } from "./utils/warningEngine.js";
+import HealthScoreCard from "./components/HealthScoreCard";
 
 function App() {
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     sleep: "",
-    date: new Date().toISOString().split("T")[0], 
-    sleep: '',
     mood: 3,
     exercise: "",
     heartRate: "",
@@ -38,7 +37,7 @@ function App() {
   return (
     <div className="container">
       <h1>🚀 Astronaut Health Monitor</h1>
-      
+
       <div className="card">
         <h2>Daily Log Entry</h2>
         <form onSubmit={handleSubmit} className="log-form">
@@ -99,6 +98,7 @@ function App() {
           </button>
         </form>
       </div>
+      <HealthScoreCard warnings={warnings} logs={savedLogs} />
       {/* Step 13: Health Warnings */}
       <div className="card" style={{ marginTop: "30px" }}>
         <h2>Health Warnings</h2>
@@ -118,7 +118,6 @@ function App() {
       </div>
       {/* Step 7: Mission History (Dashboard) */}
       <div className="card" style={{ marginTop: "30px" }}>
-      <div className="card" style={{ marginTop: '30px' }}>
         <h2>Mission History</h2>
         {savedLogs.length === 0 ? (
           <p>No logs saved yet.</p>
@@ -141,7 +140,7 @@ function App() {
         )}
       </div>
 
-      <div className="card" style={{ marginTop: '30px' }}>
+      <div className="card" style={{ marginTop: "30px" }}>
         <h2>Sleep Trend Graph</h2>
         {savedLogs.length === 0 ? (
           <p>No data to show graph.</p>
