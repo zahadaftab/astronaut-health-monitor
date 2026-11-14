@@ -4,7 +4,7 @@ import SleepTrendChart from './components/SleepTrendChart';
 
 function App() {
   const [formData, setFormData] = useState({
-    date: new Date().toLocaleDateString(), 
+    date: new Date().toISOString().split("T")[0], 
     sleep: '',
     mood: 3,
     exercise: '',
@@ -33,10 +33,13 @@ function App() {
     <div className="container">
       <h1>🚀 Astronaut Health Monitor</h1>
       
-      {/* Step 6: Daily Log Form */}
       <div className="card">
         <h2>Daily Log Entry</h2>
         <form onSubmit={handleSubmit} className="log-form">
+          <div className="input-group">
+            <label>Date:</label>
+            <input type="date" name="date" value={formData.date} onChange={handleChange} required />
+          </div>
           <div className="input-group">
             <label>Sleep Hours:</label>
             <input type="number" step="0.1" name="sleep" value={formData.sleep} onChange={handleChange} required />
@@ -57,7 +60,6 @@ function App() {
         </form>
       </div>
 
-      {/* Step 7: Mission History (Dashboard) */}
       <div className="card" style={{ marginTop: '30px' }}>
         <h2>Mission History</h2>
         {savedLogs.length === 0 ? (
@@ -73,7 +75,6 @@ function App() {
         )}
       </div>
 
-      {/* Step 9: Graph Integration */}
       <div className="card" style={{ marginTop: '30px' }}>
         <h2>Sleep Trend Graph</h2>
         {savedLogs.length === 0 ? (
