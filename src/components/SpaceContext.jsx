@@ -329,3 +329,6 @@ function SpaceContext({ logs = [] }) {
 }
 
 export default SpaceContext;
+// Shared with src/screens/Hazards.jsx (new UI). The logic stays here.
+// oxlint-disable-next-line react/only-export-components
+export { hazards, HAZARD_METRICS, METRICS, STATUS, evaluateHazard };

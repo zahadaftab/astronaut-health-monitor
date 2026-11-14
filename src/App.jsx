@@ -6,6 +6,10 @@ import SpaceContext from "./components/SpaceContext.jsx";
 import HazardTag from "./components/HazardTag";
 import MetricsCharts from "./components/MetricsCharts";
 import { DEMO_LOGS, DEMO_LABEL } from "./data/demoData.js";
+import CrewCheckApp from "./CrewCheckApp";
+
+// Step 20: render the new UI (src/CrewCheckApp.jsx). Set to false to see the original layout.
+const USE_NEW_UI = true;
 
 const SECTIONS = [
   { id: "overview", icon: "📊", label: "Overview" },
@@ -64,6 +68,26 @@ function App() {
       radiationDose: "",
     });
   };
+  // Step 20 — new UI. Same state and handlers as below; the logic in this file is unchanged.
+  if (USE_NEW_UI) {
+    return (
+      <CrewCheckApp
+        logs={logs}
+        savedLogs={savedLogs}
+        warnings={warnings}
+        formData={formData}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        onDelete={(date) =>
+          saveLogs(savedLogs.filter((l) => l.date !== date))
+        }
+        demoMode={demoMode}
+        demoLabel={DEMO_LABEL}
+        onToggleDemo={() => setDemoMode(!demoMode)}
+      />
+    );
+  }
+
 
   return (
     <div className="app-layout">

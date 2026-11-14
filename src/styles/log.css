@@ -1,0 +1,339 @@
+/* Daily Log — matches Figma "Desktop Daily Log" */
+
+.log-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+/* Form card */
+.log-card {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px var(--space-8);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-card);
+}
+
+.log-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.log-card__title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.log-badge {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
+.log-card__title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.log-card__required {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.log-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+/* Fields */
+.log-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.log-card .log-field__label {
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.log-field__hint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.log-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.log-card .log-input input {
+  width: 100%;
+  height: 52px;
+  padding: 0 72px 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: var(--color-raised);
+  color: var(--color-text);
+  font: var(--weight-medium) 16px var(--font-sans);
+  transition: border-color var(--duration) var(--ease);
+}
+
+.log-card .log-input input[type="date"] {
+  padding-right: 18px;
+  color: var(--color-text);
+  color-scheme: dark;
+}
+
+/* Hide the native picker icon; ours sits on top and the field opens on click */
+.log-card .log-input input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.log-card .log-input input:focus {
+  border-color: var(--color-accent);
+}
+
+.log-card .log-input input::placeholder {
+  color: var(--color-faint);
+}
+
+.log-input__unit,
+.log-input__icon {
+  position: absolute;
+  right: 18px;
+  display: flex;
+  font-size: 15px;
+  color: var(--color-muted);
+  pointer-events: none;
+}
+
+/* Mood */
+.log-mood {
+  gap: 10px;
+}
+
+.log-mood__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.log-mood__value {
+  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+}
+
+.log-card .log-mood__range {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  margin: 10px 0;
+  border-radius: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-accent) var(--fill),
+    rgba(148, 163, 184, 0.18) var(--fill)
+  );
+  cursor: pointer;
+}
+
+.log-card .log-mood__range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 6px rgba(45, 212, 191, 0.2);
+}
+
+.log-card .log-mood__range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 6px rgba(45, 212, 191, 0.2);
+}
+
+.log-mood__ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--space-2);
+}
+
+.log-mood__tick {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 13px;
+  color: var(--color-muted);
+}
+
+.log-mood__tick:first-child {
+  align-items: flex-start;
+}
+
+.log-mood__tick:last-child {
+  align-items: flex-end;
+}
+
+.log-mood__tick strong {
+  font-weight: var(--weight-semibold);
+}
+
+.log-mood__tick.is-current strong {
+  color: var(--color-accent);
+}
+
+/* Submit */
+.log-card__spacer {
+  flex: 1;
+}
+
+.log-submit {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font: var(--weight-semibold) 16px var(--font-sans);
+  cursor: pointer;
+  transition: background-color var(--duration) var(--ease);
+}
+
+.log-submit:hover {
+  background: var(--color-accent-hover);
+}
+
+/* Side column */
+.log-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.log-why {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: var(--color-card);
+}
+
+.log-why__title {
+  margin: 0 0 var(--space-1);
+  padding: 0;
+  border: 0;
+  font-family: var(--font-sans);
+  font-size: 20px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.log-why__item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) 14px;
+  border: 1px solid color-mix(in srgb, var(--metric) 18%, transparent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--metric) 9%, var(--color-bg));
+}
+
+.log-why__icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--metric);
+  background: color-mix(in srgb, var(--metric) 16%, transparent);
+}
+
+.log-why__name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.log-why__hazard {
+  margin: 1px 0 0;
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  color: var(--metric);
+}
+
+.log-why__rule {
+  margin: 1px 0 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+.log-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: var(--space-3) 14px;
+  border-radius: 16px;
+  background: var(--color-raised);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+/* Tablet */
+@media (max-width: 1099px) {
+  .log-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phone */
+@media (max-width: 599px) {
+  .log-card {
+    padding: var(--space-5);
+  }
+
+  .log-row {
+    grid-template-columns: 1fr;
+  }
+
+  .log-card__head {
+    flex-wrap: wrap;
+  }
+}
