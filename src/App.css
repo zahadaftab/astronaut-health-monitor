@@ -285,3 +285,105 @@ input[type="range"] {
     padding: 20px 14px;
   }
 }
+/* ===== Theme: fonts, colors, polish (keep at the end of the file) ===== */
+:root {
+  --bg: #070a12;
+  --bg-glow: #12203a;
+  --card: rgba(22, 30, 46, 0.85);
+  --sidebar: #0b1019;
+  --accent: #66fcf1;
+  --accent-soft: rgba(102, 252, 241, 0.15);
+  --border: rgba(102, 252, 241, 0.22);
+  --text: #eef2f7;
+  --text-muted: #aab4c3;
+  --font-heading: "Orbitron", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background:
+    radial-gradient(circle at 20% 0%, var(--bg-glow) 0%, transparent 55%),
+    radial-gradient(circle at 90% 100%, #1a1040 0%, transparent 50%), var(--bg);
+  background-attachment: fixed;
+}
+
+h1,
+h2,
+.sidebar-brand {
+  font-family: var(--font-heading);
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 28px;
+  text-shadow: 0 0 18px rgba(102, 252, 241, 0.35);
+}
+
+h2 {
+  font-size: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+}
+
+label {
+  color: var(--text);
+}
+
+.card li,
+.sidebar-demo small {
+  color: var(--text-muted);
+}
+
+.sidebar {
+  background-color: var(--sidebar);
+  border-right: 1px solid var(--border);
+}
+
+.sidebar-brand {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.nav-btn {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+}
+
+.nav-btn.active {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  box-shadow:
+    inset 3px 0 0 var(--accent),
+    0 0 16px rgba(102, 252, 241, 0.18);
+}
+
+input[type="number"],
+input[type="date"] {
+  background-color: rgba(7, 10, 18, 0.8);
+  border: 1px solid var(--border);
+}
+
+input[type="number"]:focus,
+input[type="date"]:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #45a29e, #66fcf1);
+  font-family: var(--font-body);
+}
+
+.save-btn:hover {
+  box-shadow: 0 6px 20px rgba(102, 252, 241, 0.35);
+}
