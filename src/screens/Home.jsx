@@ -19,18 +19,20 @@ const LEVEL_CLASS = {
   red: "critical",
 };
 
-const CAUSE_ORDER = ["sleep", "exercise", "mood", "hr"];
+const CAUSE_ORDER = ["sleep", "exercise", "mood", "hr", "radiation"];
 const CAUSE_LABEL = {
   sleep: "Sleep",
   exercise: "Exercise",
   mood: "Mood",
   hr: "Resting HR",
+  radiation: "Radiation",
 };
 const WARNING_NAME = {
   mood: "Low mood",
   hr: "High resting heart rate",
   sleep: "Low sleep, 3 days",
   exercise: "Low exercise, 3 days",
+  radiation: "High radiation dose",
 };
 
 // Display rules only: the limits come from thresholds.js, so the UI
@@ -81,7 +83,7 @@ const METRICS = [
 // Positions match src/assets/astronaut.svg placed at x=69, y=10, 221.6 × 260
 const SPOTS = [
   { id: "head", types: ["mood", "sleep"], label: "Mood · Sleep", x: 138, y: 62, lx: 82, ly: 58, anchor: "end" },
-  { id: "aura", types: [], label: "Radiation", x: 232, y: 40, lx: 250, ly: 36, anchor: "start" },
+  { id: "aura", types: ["radiation"], label: "Radiation", x: 232, y: 40, lx: 250, ly: 36, anchor: "start" },
   { id: "chest", types: ["hr"], label: "Heart rate", x: 169, y: 109, lx: 282, ly: 112, anchor: "start" },
   { id: "legs", types: ["exercise"], label: "Exercise", x: 208, y: 212, lx: 176, ly: 250, anchor: "end" },
 ];
@@ -121,6 +123,13 @@ function describeWarning(warning, logs) {
       return `${toNumber(log?.mood) ?? "—"}/5 on ${formatShort(warning.date)}`;
     case "hr":
       return `${toNumber(log?.heartRate) ?? "—"} bpm on ${formatShort(warning.date)}`;
+    case "radiation": {
+      // Daily dose warning shows the dose; the 600 mSv total warning keeps its own message
+      const dose = toNumber(log?.radiationDose);
+      return dose !== null && dose > T.radiation.aboveMsv
+        ? `${dose} mSv on ${formatShort(warning.date)}`
+        : warning.message;
+    }
     default:
       return warning.message;
   }
@@ -241,14 +250,14 @@ function StatusHero({ score, level, recent, logs, onNavigate }) {
 /* ---------- body status (astronaut) ---------- */
 
 function spotState(spot, latest, recent) {
+  const hadWarning = recent.some((w) => spot.types.includes(w.type));
   if (spot.id === "aura") {
+    // Radiation shows the latest dose; it turns "past" after a radiation warning
     const dose = toNumber(latest?.radiationDose);
-    return dose === null
-      ? { state: "none", text: "No data" }
-      : { state: "ok", text: `${dose} mSv` };
+    if (dose === null) return { state: "none", text: "No data" };
+    return { state: hadWarning ? "past" : "ok", text: `${dose} mSv` };
   }
   if (!latest) return { state: "none", text: "No data" };
-  const hadWarning = recent.some((w) => spot.types.includes(w.type));
   return hadWarning
     ? { state: "past", text: "Past warning" }
     : { state: "ok", text: "Within limit" };

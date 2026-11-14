@@ -76,7 +76,7 @@ function DailyLog({ formData, onChange, onSubmit }) {
             </span>
             <h2 id="log-title" className="log-card__title">Daily Log Entry</h2>
           </div>
-          <p className="log-card__required">All fields required</p>
+          <p className="log-card__required">All fields required except radiation</p>
         </div>
 
         <div className="log-row">

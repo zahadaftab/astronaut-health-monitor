@@ -113,7 +113,7 @@ function CrewCheckApp({
 
             {screen === "log" &&
               (demoMode ? (
-                // Same notice as the Log section in App.jsx (demo mode, PR #13)
+                // Logging is off while demo data is shown (demo mode, PR #13)
                 <div className="card">
                   <h2>Demo mode is on</h2>
                   <p>
@@ -131,35 +131,13 @@ function CrewCheckApp({
 
             {screen === "trends" && <Trends logs={logs} />}
 
+            {/* Warnings are shown on Home and as a status per day in History */}
             {screen === "history" && (
-              <>
-                <History
-                  logs={logs}
-                  warnings={warnings}
-                  onDelete={demoMode ? undefined : onDelete}
-                />
-
-                {/* Same markup as the Alerts section in App.jsx (PR #15) */}
-                <div className="card">
-                  <h2>Health Warnings</h2>
-                  {warnings.length === 0 ? (
-                    <p>No health warnings detected.</p>
-                  ) : (
-                    <ul>
-                      {warnings.map((warning, index) => (
-                        <li key={index}>
-                          <strong>{warning.type.toUpperCase()}</strong> —{" "}
-                          {warning.message} ({warning.date})
-                          <br />
-                          <small>
-                            ⚠️ Hazard: {warning.hazard} — {warning.risk}
-                          </small>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </>
+              <History
+                logs={logs}
+                warnings={warnings}
+                onDelete={demoMode ? undefined : onDelete}
+              />
             )}
           </div>
         </main>

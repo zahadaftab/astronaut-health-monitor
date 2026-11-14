@@ -28,7 +28,7 @@ The Home screen is the first thing an astronaut sees after logging. It answers o
 
 The main element of the page.
 
-- **Status label** (`Healthy`, `Caution`, `Critical`, `No data yet`) comes from `getHealthScore(warnings, logs)`. Same calculation as `HealthScoreCard`.
+- **Status label** (`Healthy`, `Caution`, `Critical`, `No data yet`) comes from `getHealthScore(warnings, logs)`. Same calculation the old `HealthScoreCard` used.
 - **Summary sentence** is built from the warnings inside the 7-day window, e.g. *"4 warnings, all on Nov 11."*
 - **Recovery line** appears when there were warnings and later logs have none: *"No new warnings in the last 3 logged days."*
 - **Cause chips** show one chip per warning type (Sleep, Exercise, Mood, Resting HR) with a short explanation, e.g. *"Under 7 h for 3 nights (Nov 9–11)"* or *"104 bpm on Nov 11"*. Numbers come from the logs and `HEALTH_THRESHOLDS`.
