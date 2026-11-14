@@ -26,7 +26,7 @@ Astronauts log four things once a day — **sleep, mood, exercise, heart rate**.
 
 > What is hazard mapping and how do we connect it to the data?
 
-Human spaceflight poses many risks to the human body although it may not be obvious. The collected metrics will help users understand the significance of their daily behaviors such as sleep, mood, exercise, and heart rate to map the potential hazards that can occur within each category. Tracking physical activities and the exertion represents potential interpretaions to space radiation and gravity fields. For example, seeing a low sleeping score doesn't just mean you didn't get enough sleep. It poses an early indicator of the risk of Isolation and confinement, potentially signaling stress or *circadian desynchronization*. 
+Human spaceflight poses many risks to the human body. The collected metrics will help users understand the significance of their daily behaviors such as sleep, mood, exercise, and heart rate by mapping the potential hazards that can occur from each hazard. For example, seeing a low sleeping score doesn't just mean you didn't get enough sleep. It poses an early indicator of the risk of isolation and confinement, potentially signaling stress or *circadian desynchronization*. 
 
 
 ## Warnings (rule-based)
