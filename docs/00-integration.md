@@ -1,6 +1,6 @@
 # 00 — How the new UI plugs into the app
 
-The step 20 redesign is now **the only UI**. `App.jsx` holds the data and handlers; everything you see lives in `CrewCheckApp.jsx`, `src/screens/` and `src/styles/`. The old layout (`USE_NEW_UI` switch, `App.css`, `MetricsCharts`, `HealthScoreCard`, `HazardTag`) was removed after PR #20.
+The step 20 redesign lives in its own files and plugs into `App.jsx` without changing its logic. The goal: teammates can make changes to the logic and their own JSX without merge conflicts with the UI.
 
 ## Structure
 
