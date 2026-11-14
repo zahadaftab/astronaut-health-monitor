@@ -32,13 +32,15 @@ export function checkHealthWarnings(rawLogs) {
     }
   });
 
-  // Radiation adds up: warn if recorded doses pass the NASA career limit.
+  // Radiation adds up: compare the LOGGED total with NASA's 600 mSv career
+  // exposure standard. This is an occupational limit, not a medical safety
+  // threshold, and it only counts days logged in this app (not prior missions).
   const totalDose = logs.reduce((sum, log) => sum + (Number(log.radiationDose) || 0), 0);
   if (totalDose > HEALTH_THRESHOLDS.radiation.careerLimitMsv) {
     warnings.push({
       type: "radiation",
       date: logs[logs.length - 1].date,
-      message: `Total radiation dose ${totalDose.toFixed(1)} mSv is over the ${HEALTH_THRESHOLDS.radiation.careerLimitMsv} mSv career limit`,
+      message: `Logged total ${totalDose.toFixed(1)} mSv exceeds NASA's ${HEALTH_THRESHOLDS.radiation.careerLimitMsv} mSv career exposure standard (logged days only)`,
     });
   }
 
