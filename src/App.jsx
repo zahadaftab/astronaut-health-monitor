@@ -3,7 +3,8 @@ import "./App.css";
 import SleepTrendChart from "./components/SleepTrendChart";
 import { checkHealthWarnings } from "./utils/warningEngine.js";
 import HealthScoreCard from "./components/HealthScoreCard";
-import SpaceContext  from "./components/SpaceContext.jsx";
+import SpaceContext from "./components/SpaceContext.jsx";
+import HazardTag from "./components/HazardTag";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -54,6 +55,7 @@ function App() {
           </div>
           <div className="input-group">
             <label>Sleep Hours:</label>
+            <HazardTag metric="sleep" />
             <input
               type="number"
               step="0.1"
@@ -65,6 +67,7 @@ function App() {
           </div>
           <div className="input-group">
             <label>Mood (1-Bad to 5-Good): {formData.mood}</label>
+            <HazardTag metric="mood" />
             <input
               type="range"
               min="1"
@@ -76,6 +79,7 @@ function App() {
           </div>
           <div className="input-group">
             <label>Exercise (Minutes):</label>
+            <HazardTag metric="exercise" />
             <input
               type="number"
               name="exercise"
@@ -86,6 +90,7 @@ function App() {
           </div>
           <div className="input-group">
             <label>Heart Rate (BPM):</label>
+            <HazardTag metric="heartRate" />
             <input
               type="number"
               name="heartRate"
@@ -100,7 +105,7 @@ function App() {
         </form>
       </div>
       <HealthScoreCard warnings={warnings} logs={savedLogs} />
-      <SpaceContext/>
+      <SpaceContext />
       {/* Step 13: Health Warnings */}
       <div className="card" style={{ marginTop: "30px" }}>
         <h2>Health Warnings</h2>
@@ -153,9 +158,9 @@ function App() {
         ) : (
           <SleepTrendChart logs={savedLogs} />
         )}
-            </div>
-
+      </div>
     </div>
   );
 }
+
 export default App;
