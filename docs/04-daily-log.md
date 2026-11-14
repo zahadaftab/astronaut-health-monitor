@@ -11,7 +11,7 @@ Redesign of the Daily Log form based on Figma frame `10:530` (file `0WPOWfju8Ppf
 | `src/screens/DailyLog.jsx` | New | Form card + "Why we track these" side panel |
 | `src/styles/log.css` | New | Form layout, fields, mood slider, side panel, responsive rules |
 | `src/App.jsx` | Edited | `{screen === "log" && <DailyLog formData={formData} onChange={handleChange} onSubmit={handleSubmit} />}`; `handleSubmit` ends with `navigate("home")` |
-| `src/components/HazardTag.jsx` | Kept | No longer rendered in the form. Import commented in `App.jsx`, file not deleted |
+| `src/components/HazardTag.jsx` | Removed | Replaced by the hints in this form (removed with the old UI) |
 
 Props: `DailyLog({ formData, onChange, onSubmit })`. The component holds no state of its own.
 

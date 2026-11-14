@@ -83,6 +83,6 @@ Each card has:
 
 ## Update — charts in their own file + radiation limit
 
-- The restyled chart code now lives in **`src/components/TrendCharts.jsx`** (`Trends.jsx` imports it). `MetricsCharts.jsx` stays as the team left it (Dayna added the sleep chart there; the original layout still uses it).
+- The chart code lives in **`src/components/TrendCharts.jsx`** (`Trends.jsx` imports it). The old `MetricsCharts.jsx` was removed with the old UI.
 - `thresholds.js` now has `radiation.aboveMsv` (currently 0.5 mSv, see SOURCES.md), so the Radiation dose card shows a dashed limit line, amber flagged days, and the rule "Daily dose above 0.5 mSv triggers a warning". This matches the radiation warning in `warningEngine.js`.
 - The known limitations about two rule sets and the missing radiation threshold are resolved by PR #14.

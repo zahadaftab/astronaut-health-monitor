@@ -6,24 +6,20 @@ The step 20 redesign lives in its own files and plugs into `App.jsx` without cha
 
 | File | Owner | Role |
 |---|---|---|
-| `src/App.jsx` | Team | State, handlers, demo mode, original layout. **Unchanged** except for the block below |
+| `src/App.jsx` | Team | State, handlers, demo mode. Renders `<CrewCheckApp>` and nothing else |
 | `src/CrewCheckApp.jsx` | UI | New shell: sidebar, bottom nav, header, screens. Presentation only |
 | `src/screens/*` | UI | Home, Hazards, Daily Log, Trends, History |
 | `src/components/layout/*`, `src/components/ui/Icon.jsx` | UI | Navigation and icons |
-| `src/components/TrendCharts.jsx` | UI | Restyled charts used by Trends (`MetricsCharts.jsx` stays as the team left it) |
+| `src/components/TrendCharts.jsx` | UI | Charts used by Trends |
 | `src/styles/*.css` | UI | Design tokens, layout and one stylesheet per screen |
 | `src/utils/dates.js` | UI | Local-date helpers for display |
 | `src/assets/astronaut.svg` | UI | Body Status illustration |
 
-## What was added to team files (additions only)
+## How App.jsx connects
 
-- **`App.jsx`:** an import, `const USE_NEW_UI = true;`, and an `if (USE_NEW_UI) return <CrewCheckApp … />` block **before** the original `return`. It passes the team's own values: `logs`, `savedLogs`, `warnings`, `formData`, `handleChange`, `handleSubmit`, the same delete logic (`saveLogs(savedLogs.filter(...))`), `demoMode` and `DEMO_LABEL`.
-- **`SpaceContext.jsx`:** one line at the end that exports `hazards`, `HAZARD_METRICS`, `METRICS`, `STATUS` and `evaluateHazard`, so the Hazards screen reuses the same rules.
-- **`index.html`:** one font link (Inter, Space Grotesk, and Orbitron for the App.css theme) and the page title.
+`App.jsx` passes its own values to `<CrewCheckApp>`: `logs`, `savedLogs`, `warnings`, `formData`, `handleChange`, `handleSubmit`, a delete handler (`saveLogs(savedLogs.filter(...))`), `demoMode` and `DEMO_LABEL`.
 
-## Switching layouts
-
-Set `USE_NEW_UI = false` in `App.jsx` to see the original sidebar layout (PR #15) with exactly the same data. Useful to compare, or if a new feature lands in the original JSX before it has a new-UI version.
+`SpaceContext.jsx` exports `hazards`, `HAZARD_METRICS`, `METRICS`, `STATUS` and `evaluateHazard`, so the Hazards screen reuses the same rules.
 
 ## Adding a feature
 
@@ -32,6 +28,5 @@ Set `USE_NEW_UI = false` in `App.jsx` to see the original sidebar layout (PR #15
 
 ## CSS notes
 
-- `App.css` (PR #17) is kept. The new sidebar uses the class `.side-nav` so it never collides with `.sidebar` from App.css.
-- `App.css` sets global styles on `h1`, `h2`, `label` and inputs. Screen styles use class selectors, which win. `layout.css` removes the `h1` glow inside `.app-shell`.
-- Demo mode reuses Blina's classes: `.demo-btn`, `.demo-banner`, `.sidebar-demo`.
+- `App.css` was removed. Base styles (`*`, `body`), the small `.card` notice and the demo-mode classes (`.demo-btn`, `.demo-banner`, `.sidebar-demo`) now live in `layout.css`.
+- Each screen has its own stylesheet in `src/styles/`, using the tokens in `tokens.css`.
