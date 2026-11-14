@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Icon from "../components/ui/Icon";
 import {
   hazards,
@@ -57,6 +57,87 @@ const METRIC_LABELS = {
   heartRate: { label: "Heart rate", icon: "heart" },
 };
 
+// Card tint per hazard (display only; status colors stay on the chip)
+const HAZARD_THEME = {
+  radiation: "#2dd4bf",
+  isolation: "#c4b5fd",
+  distance: "#93c5fd",
+  gravity: "#f9a8d4",
+  environment: "#fdba74",
+};
+
+const prefersReducedMotion = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* 3D tilt card. The pointer only updates CSS variables on the element,
+   so moving the mouse never re-renders React. */
+function HazardCard({ hazard, info, level, isActive, onSelect }) {
+  const ref = useRef(null);
+
+  const handleMove = (e) => {
+    if (e.pointerType !== "mouse") return;
+    const el = ref.current;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    el.style.setProperty("--rx", `${((0.5 - py) * 14).toFixed(2)}deg`);
+    el.style.setProperty("--ry", `${((px - 0.5) * 14).toFixed(2)}deg`);
+    el.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
+    el.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
+  };
+
+  const handleLeave = () => {
+    const el = ref.current;
+    el.style.setProperty("--rx", "0deg");
+    el.style.setProperty("--ry", "0deg");
+  };
+
+  return (
+    <button
+      ref={ref}
+      type="button"
+      className={`hazard-card${isActive ? " is-active" : ""}`}
+      style={{ "--theme": HAZARD_THEME[hazard.id] }}
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+      onClick={() => onSelect(hazard.id)}
+      aria-pressed={isActive}
+    >
+      <svg className="hazard-card__dots" viewBox="0 0 100 100" aria-hidden="true">
+        <defs>
+          <pattern id={`dots-${hazard.id}`} width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="7" cy="7" r="1.2" fill="currentColor" />
+          </pattern>
+        </defs>
+        <rect width="100" height="100" fill={`url(#dots-${hazard.id})`} />
+      </svg>
+      <svg className="hazard-card__square" viewBox="0 0 100 100" aria-hidden="true">
+        <rect x="20" y="20" width="60" height="60" rx="8" />
+        <rect x="35" y="35" width="30" height="30" rx="4" />
+      </svg>
+
+      <span className="hazard-card__top">
+        <span className="hazard-card__icon" aria-hidden="true">
+          <Icon name={info.icon} size={22} />
+        </span>
+        <span className={`status-chip status-chip--${level}`}>
+          <span className="status-chip__dot" aria-hidden="true" />
+          {STATUS[level].label}
+        </span>
+      </span>
+
+      <span className="hazard-card__body">
+        <span className="hazard-card__name">{hazard.label}</span>
+        <span className="hazard-card__short">{info.short}</span>
+        <span className="hazard-card__more" aria-hidden="true">
+          <span className="hazard-card__line" />
+          {isActive ? "Showing details" : "View details"}
+        </span>
+      </span>
+    </button>
+  );
+}
+
 // Reads the team's HAZARD_METRICS map. Distance is driven by logging consistency.
 function trackedItems(id) {
   if (id === "distance") {
@@ -70,6 +151,18 @@ function trackedItems(id) {
 
 function Hazards({ logs = [], onStartLog }) {
   const [activeId, setActiveId] = useState(hazards[0].id);
+    const detailRef = useRef(null);
+
+  // On phones the detail panel sits below the cards, so bring it into view.
+  const selectHazard = (id) => {
+    setActiveId(id);
+    if (window.matchMedia("(max-width: 899px)").matches) {
+      detailRef.current?.scrollIntoView({
+        behavior: prefersReducedMotion() ? "auto" : "smooth",
+        block: "start",
+      });
+    }
+  };
   const active = hazards.find((h) => h.id === activeId);
 
   // Oldest to newest so "recent" always means the latest entries
@@ -88,6 +181,19 @@ function Hazards({ logs = [], onStartLog }) {
 
   return (
     <div className="hazards">
+            <div className="hazard-tiles" role="group" aria-label="Five hazards of spaceflight">
+        {hazards.map((hazard) => (
+          <HazardCard
+            key={hazard.id}
+            hazard={hazard}
+            info={HAZARD_DETAILS[hazard.id]}
+            level={statuses[hazard.id].level}
+            isActive={hazard.id === activeId}
+            onSelect={selectHazard}
+          />
+        ))}
+      </div>
+      {/*}
       <div className="hazard-tiles" role="group" aria-label="Five hazards of spaceflight">
         {hazards.map((hazard) => {
           const isActive = hazard.id === activeId;
@@ -114,9 +220,10 @@ function Hazards({ logs = [], onStartLog }) {
           );
         })}
       </div>
+      */}
 
       <div className="hazards__row">
-        <section className="hazard-detail" aria-labelledby="hazard-title" aria-live="polite">
+        <section ref={detailRef} className="hazard-detail" aria-labelledby="hazard-title" aria-live="polite">
           <div className="hazard-detail__head">
             <span className="hazard-detail__icon" aria-hidden="true">
               <Icon name={details.icon} size={30} />

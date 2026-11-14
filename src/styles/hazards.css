@@ -439,3 +439,219 @@
     margin-left: 0;
   }
 }
+/* ---------- 3D hazard cards (style inspired by animated 3D cards) ---------- */
+
+.hazard-card {
+  --theme: #2dd4bf;
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 210px;
+  padding: var(--space-5);
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--theme) 22%, transparent), transparent 60%),
+    linear-gradient(160deg, color-mix(in srgb, var(--theme) 8%, var(--color-raised)), rgba(8, 12, 24, 0.92));
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 160ms ease-out,
+    border-color var(--duration) var(--ease),
+    box-shadow 300ms var(--ease);
+  animation: hazard-card-in 600ms var(--ease) both;
+}
+
+.hazard-card:nth-child(2) { animation-delay: 60ms; }
+.hazard-card:nth-child(3) { animation-delay: 120ms; }
+.hazard-card:nth-child(4) { animation-delay: 180ms; }
+.hazard-card:nth-child(5) { animation-delay: 240ms; }
+
+/* Uses `translate`, not `transform`, so it never overrides the tilt */
+@keyframes hazard-card-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+  }
+}
+
+/* Moving light that follows the pointer */
+.hazard-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.14),
+    transparent 45%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms var(--ease);
+}
+
+.hazard-card:hover::after {
+  opacity: 1;
+}
+
+.hazard-card:hover {
+  border-color: color-mix(in srgb, var(--theme) 45%, transparent);
+  box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--theme) 60%, transparent);
+}
+
+.hazard-card.is-active {
+  border-color: var(--theme);
+  box-shadow:
+    0 0 0 1px var(--theme),
+    0 24px 56px -28px var(--theme);
+}
+
+.hazard-card:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Tilt only with a real mouse and when motion is allowed */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hazard-card {
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  }
+}
+
+/* Decorations */
+.hazard-card__dots {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 110px;
+  height: 110px;
+  color: var(--theme);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.hazard-card__square {
+  position: absolute;
+  bottom: -14px;
+  left: -14px;
+  width: 80px;
+  height: 80px;
+  fill: none;
+  stroke: var(--theme);
+  stroke-width: 1;
+  opacity: 0.25;
+  pointer-events: none;
+  transition: rotate 800ms var(--ease);
+}
+
+.hazard-card:hover .hazard-card__square {
+  rotate: 90deg;
+}
+
+/* Content */
+.hazard-card__top,
+.hazard-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+.hazard-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.hazard-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid color-mix(in srgb, var(--theme) 35%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--theme) 14%, transparent);
+  color: var(--theme);
+  transition: translate 300ms var(--ease), rotate 300ms var(--ease);
+}
+
+.hazard-card:hover .hazard-card__icon {
+  translate: 0 -2px;
+  rotate: 5deg;
+}
+
+.hazard-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hazard-card__name {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.hazard-card__short {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-text-soft);
+}
+
+.hazard-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--theme);
+  opacity: 0;
+  translate: -6px 0;
+  transition:
+    opacity 300ms var(--ease),
+    translate 300ms var(--ease);
+}
+
+.hazard-card:hover .hazard-card__more,
+.hazard-card:focus-visible .hazard-card__more,
+.hazard-card.is-active .hazard-card__more {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.hazard-card__line {
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+/* Touch screens: always show the hint, since there is no hover */
+@media (hover: none) {
+  .hazard-card__more {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hazard-card,
+  .hazard-card__square,
+  .hazard-card__icon,
+  .hazard-card__more {
+    animation: none;
+    transition: none;
+  }
+}
