@@ -30,6 +30,6 @@ export const HEALTH_THRESHOLDS = {
   radiation: {
     aboveMsv: 0.5, // per day: ISS crews get ~0.2–0.5 mSv/day [2][3]
     criticalAbove: 1.0, // per day: ~1 mSv/day+ projected beyond low-Earth orbit [2]
-    careerLimitMsv: 600, // NASA career effective dose limit [1][2]
+    careerLimitMsv: 600, // NASA occupational career exposure standard, not a medical safety threshold [1][2]
   },
 };

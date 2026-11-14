@@ -12,7 +12,7 @@ Every warning threshold in CrewCheck lives in [`src/data/thresholds.js`](src/dat
 | Sleep | < **6 h** for 3 days in a row | < 4 h | **Sourced**: shuttle crews averaged ~6 h/night in space (vs 7.9 h on Earth), and 5–6 h a night impairs performance within a week [7]. Crews are allotted 8.5 h [6][8]. The 3-day window and 4 h critical level are **project-defined**. |
 | Exercise | < **60 min** for 3 days in a row | – | **Project-defined**: half of the ~2 h/day NASA prescribes on the ISS to counter bone and muscle loss [4][5]. |
 | Radiation | > **0.5 mSv/day** | > **1.0 mSv/day** | **Sourced**: ISS crews receive ~0.2–0.5 mSv/day [2][3]; ~1 mSv/day or more is projected beyond low-Earth orbit [2]. |
-| Radiation (mission total) | > **600 mSv** | – | **Sourced**: NASA career limit for effective dose [1][2]. |
+| Radiation (logged total) | > **600 mSv** | – | **Sourced**: NASA's occupational career exposure standard (NASA-STD-3001), set to keep the risk of cancer death at or below 3% [1][2]. It is a regulatory limit, **not** a medical safety threshold. The app only adds up days logged in CrewCheck, not doses from earlier missions. |
 | Mood | ≤ **2** of 5 | – | **Project-defined**: self-rated scale. Behavioral health is an HRP risk area [9][10]. |
 | Resting heart rate | > **100 bpm** | > 120 bpm | **Project-defined**: monitoring threshold. Cardiovascular change is an HRP risk area [9][10]. |
 
@@ -20,7 +20,7 @@ Every warning threshold in CrewCheck lives in [`src/data/thresholds.js`](src/dat
 
 | Metric | Claim | Source |
 |---|---|---|
-| Radiation | Career effective dose limit: < 600 mSv, all ages and sexes | [1] |
+| Radiation | Career effective dose limit (occupational standard): < 600 mSv, all ages and sexes; set with a 3% cancer-mortality risk level | [1] |
 | Radiation | ISS crews receive ~0.5 mSv/day; ~1 mSv/day or more projected beyond LEO | [2] |
 | Radiation | ISS dose 0.2–0.5 mSv/day; ~40–90 mSv per 6-month mission | [3] |
 | Exercise | ISS crews exercise ~2 hours a day on average | [4] |
