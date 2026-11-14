@@ -125,14 +125,6 @@ npm run build && npm run lint
 ---
 
 *Prototype monitoring thresholds, not medical diagnosis.*
-## Update — vector astronaut (Body Status)
-
-- The hand-drawn SVG figure was replaced by `src/assets/astronaut.svg`, a vector trace of the astronaut image bundled with the "space-login" component (the original was a 346 px PNG; tracing keeps it sharp at any size). **Check that component's license before a public release and add credit if required.**
-- Placed with `<image href={astronautUrl} x="69" y="10" width="221.6" height="260" />`. The SVG `viewBox` is now `-30 0 420 280` so labels fit on both sides.
-- New spot positions: head (138, 62), chest (169, 109), knee (208, 212), radiation (232, 40). `spotState()` is unchanged.
-- The figure and spots float together (`.body-status__float`, ±3 px, 7 s), so spots never drift off the body. Disabled with `prefers-reduced-motion`.
-- Spot cores get a dark outline so they stay visible over the light figure.
-- The old `.suit*` classes in `home.css` are no longer used.
 
 ## Update — vector astronaut (Body Status)
 

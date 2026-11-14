@@ -80,11 +80,6 @@ Each card has:
 - **Two rule sets exist.** These charts use `thresholds.js`. The Hazards screen (`SpaceContext.jsx`) has its own `METRICS` with different limits (for example exercise < 60, heart rate 50–90). The team should agree on one set.
 - **Radiation has no limit line** until the team agrees on a sourced threshold.
 - **Form date uses UTC** (`toISOString`), so a log saved late in the evening in UTC−3 can be stored as the next day. The chart displays whatever date was saved.
-## Update — charts in their own file + radiation limit
-
-- The restyled chart code now lives in **`src/components/TrendCharts.jsx`** (`Trends.jsx` imports it). `MetricsCharts.jsx` stays as the team left it (Dayna added the sleep chart there; the original layout still uses it).
-- `thresholds.js` now has `radiation.aboveMsv` (0.6 mSv), so the Radiation dose card shows a dashed limit line, amber flagged days, and the rule "Daily dose above 0.6 mSv triggers a warning". This matches the radiation warning in `warningEngine.js`.
-- The known limitations about two rule sets and the missing radiation threshold are resolved by PR #14.
 
 ## Update — charts in their own file + radiation limit
 

@@ -147,18 +147,6 @@ npm run build && npm run lint
 ---
 
 *Prototype monitoring thresholds, not medical diagnosis.*
-## Update — new file and 3D cards
-
-- The redesigned screen moved from `SpaceContext.jsx` to **`src/screens/Hazards.jsx`**. `SpaceContext.jsx` is back to the team's version (thresholds from `thresholds.js`, sleep in Isolation, Environment "Not tracked by daily logs") plus one export line. All statuses and notes still come from `evaluateHazard()`.
-- `trackedItems()` shows "Not tracked by daily logs" when a hazard has no log fields (Environment).
-- **3D cards** replace the flat tiles (style inspired by an "animated 3D card" component, rebuilt in plain React + CSS, no new dependencies):
-  - Tilt follows the mouse (±7°). The pointer only updates CSS variables (`--rx`, `--ry`, `--mx`, `--my`), so there are no React re-renders.
-  - A soft light follows the pointer; decorative dots and a rotating square.
-  - Tint per hazard: radiation teal, isolation violet, distance blue, gravity pink, environment orange. Status colors stay on the chip, so a card tint never reads as a warning.
-  - "View details" appears on hover; the active card shows "Showing details" and a colored border.
-  - Click behaves as before: it updates the detail panel. On screens under 900px the page scrolls to the panel.
-- Tilt only with a real mouse (`hover: hover`) and when motion is allowed. Touch screens always show the hint. The enter animation uses `translate`, so it never overrides the tilt.
-- The old `.hazard-tile*` classes in `hazards.css` are no longer used.
 
 ## Update — new file and 3D cards
 
