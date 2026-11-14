@@ -3,6 +3,7 @@ import "./App.css";
 import SleepTrendChart from "./components/SleepTrendChart";
 import { checkHealthWarnings } from "./utils/warningEngine.js";
 import HealthScoreCard from "./components/HealthScoreCard";
+import SpaceContext  from "./components/SpaceContext.jsx";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -99,6 +100,7 @@ function App() {
         </form>
       </div>
       <HealthScoreCard warnings={warnings} logs={savedLogs} />
+      <SpaceContext/>
       {/* Step 13: Health Warnings */}
       <div className="card" style={{ marginTop: "30px" }}>
         <h2>Health Warnings</h2>
@@ -148,6 +150,7 @@ function App() {
           <SleepTrendChart logs={savedLogs} />
         )}
             </div>
+
     </div>
   );
 }
