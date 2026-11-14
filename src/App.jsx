@@ -105,7 +105,7 @@ function App() {
         </form>
       </div>
       <HealthScoreCard warnings={warnings} logs={savedLogs} />
-      <SpaceContext />
+      <SpaceContext logs={savedLogs}/>
       {/* Step 13: Health Warnings */}
       <div className="card" style={{ marginTop: "30px" }}>
         <h2>Health Warnings</h2>
