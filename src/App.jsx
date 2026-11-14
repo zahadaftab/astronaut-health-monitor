@@ -148,9 +148,8 @@ function App() {
         ) : (
           <SleepTrendChart logs={savedLogs} />
         )}
-      </div>
+            </div>
     </div>
   );
 }
-
 export default App;
