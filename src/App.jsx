@@ -7,6 +7,8 @@ function App() {
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
     sleep: "",
+    date: new Date().toISOString().split("T")[0], 
+    sleep: '',
     mood: 3,
     exercise: "",
     heartRate: "",
@@ -36,8 +38,7 @@ function App() {
   return (
     <div className="container">
       <h1>🚀 Astronaut Health Monitor</h1>
-
-      {/* Step 6: Daily Log Form */}
+      
       <div className="card">
         <h2>Daily Log Entry</h2>
         <form onSubmit={handleSubmit} className="log-form">
@@ -117,6 +118,7 @@ function App() {
       </div>
       {/* Step 7: Mission History (Dashboard) */}
       <div className="card" style={{ marginTop: "30px" }}>
+      <div className="card" style={{ marginTop: '30px' }}>
         <h2>Mission History</h2>
         {savedLogs.length === 0 ? (
           <p>No logs saved yet.</p>
@@ -139,8 +141,7 @@ function App() {
         )}
       </div>
 
-      {/* Step 9: Graph Integration */}
-      <div className="card" style={{ marginTop: "30px" }}>
+      <div className="card" style={{ marginTop: '30px' }}>
         <h2>Sleep Trend Graph</h2>
         {savedLogs.length === 0 ? (
           <p>No data to show graph.</p>
