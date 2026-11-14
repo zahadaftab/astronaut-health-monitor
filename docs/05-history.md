@@ -97,3 +97,9 @@ The table is wrapped in a horizontally scrollable container, so nothing breaks b
 - **Heart rate has no low limit** in `thresholds.js`, while Hazards (`SpaceContext.jsx`) uses 50–90 bpm. The team should agree on one set of rules.
 - **Radiation has no threshold**, so it's never outlined.
 - **The Health Warnings card** still uses the original `.card` styles and shows the raw stored date. Restyling it is left for later so the teammate's markup stays as written.
+## Update — delete, radiation and demo mode
+
+- **Delete** button per row (from PR #14). It calls the same logic as the original list: `saveLogs(savedLogs.filter((l) => l.date !== date))`. Hidden in demo mode, because demo data is read-only.
+- **Radiation** is now a chip, outlined when above `T.radiation.aboveMsv`, and it counts toward "Watch". Radiation warnings from the engine show in Status and "Most flagged day".
+- **One log per date** is now enforced by `handleSubmit` (PR #14), so the duplicate-date limitation no longer applies to new logs.
+- In demo mode the table shows `DEMO_LOGS`; your saved logs are untouched.
