@@ -90,9 +90,9 @@ const METRICS = {
   radiationDose: {
     label: "Radiation dose",
     unit: " mSv",
-    target: "1 mSv/day or less",
-    isBelow: (v) => v > 1,
-    critical: (v) => v > 10,
+    target: "0.6 mSv/day or less",
+    isBelow: (v) => v > 0.6,
+    critical: (v) => v > 1.3,
     worsens: "up",
   },
   heartRate: {
