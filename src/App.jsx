@@ -1,9 +1,13 @@
-import SleepTrendChart, { sleepData } from "./components/SleepTrendChart";
+import SleepTrendChart from "./components/SleepTrendChart";
+import { sampleLogs } from "./data/sampleData";
 
 function App() {
-  const totalSleep = sleepData.reduce((total, hours) => total + hours, 0);
+  // Sample data for now; later this will be the logs loaded from localStorage.
+  const logs = sampleLogs;
 
-  const averageSleep = (totalSleep / sleepData.length).toFixed(1);
+  const totalSleep = logs.reduce((total, log) => total + log.sleep, 0);
+
+  const averageSleep = (totalSleep / logs.length).toFixed(1);
 
   return (
     <main
@@ -53,7 +57,7 @@ function App() {
           Daily sleep duration over the last week
         </p>
 
-        <SleepTrendChart />
+        <SleepTrendChart logs={logs} />
       </section>
     </main>
   );
