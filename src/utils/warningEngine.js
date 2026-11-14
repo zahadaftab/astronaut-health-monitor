@@ -1,7 +1,9 @@
 import { HEALTH_THRESHOLDS } from "../data/thresholds.js";
-export function checkHealthWarnings(logs) {
+import { HAZARD_MAP } from "../data/hazards.js";
+export function checkHealthWarnings(rawLogs) {
+  // Sort by date so "consecutive days" works even if logs were entered out of order
+  const logs = [...rawLogs].sort((a, b) => new Date(a.date) - new Date(b.date));
   const warnings = [];
-
   // Mood and heart rate warnings
   logs.forEach((log) => {
     if (Number(log.mood) <= HEALTH_THRESHOLDS.mood.atOrBelow) {
@@ -58,5 +60,5 @@ export function checkHealthWarnings(logs) {
     }
   }
 
-  return warnings;
+  return warnings.map((w) => ({ ...w, ...HAZARD_MAP[w.type] }));
 }
