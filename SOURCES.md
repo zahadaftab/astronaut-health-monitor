@@ -16,23 +16,22 @@ Every warning threshold in CrewCheck lives in [`src/data/thresholds.js`](src/dat
 | Mood | ≤ **2** of 5 | – | **Project-defined**: self-rated scale. Behavioral health is an HRP risk area [9][10]. |
 | Resting heart rate | > **100 bpm** | > 120 bpm | **Project-defined**: monitoring threshold. Cardiovascular change is an HRP risk area [9][10]. |
 
-## Key facts (checked)
+## Key facts
 
-| Metric | Claim | Source | Checked |
-|---|---|---|---|
-| Radiation | Career effective dose limit: < 600 mSv, all ages and sexes | [1] | ✅ read in PDF |
-| Radiation | ISS crews receive ~0.5 mSv/day; ~1 mSv/day or more projected beyond LEO | [2] | ✅ read in PDF |
-| Radiation | ISS dose 0.2–0.5 mSv/day; ~40–90 mSv per 6-month mission | [3] | ✅ read in PDF |
-| Exercise | ISS crews exercise ~2 hours a day on average | [4] | ✅ read on page |
-| Exercise | ~2 hours a day (2025 update) | [5] | not re-checked |
-| Sleep | Crews are scheduled for 8.5 h sleep (Spaceflight Actigraphy Study: 64 short-duration + 21 long-duration crewmembers, 7,421 nights) | [6] | ✅ slide 13 |
-| Sleep | Sleep window 21:30–06:00 GMT | [6] | ⚠️ not found yet, don't quote until checked |
-| Sleep | Shuttle crews averaged ~6 h/day in space vs 7.9 h on Earth; 5–6 h/night impairs performance within a week | [7] | ✅ read in PDF |
-| Sleep | Astronauts are allotted ~8.5 h for sleep every day | [8] | ✅ read on page |
-| Hazards | Five hazards of spaceflight (RIDGE: Radiation, Isolation, Distance, Gravity, Environment) | [9] | not re-checked |
-| Hazards | 30+ human health risks tracked in a roadmap | [10] | not re-checked |
-| Hazards | Review of the highest-priority risks for a Mars mission | [11] | not re-checked |
-| Data | NASA Open Science Data Repository (OSDR) | [12] | not re-checked |
+| Metric | Claim | Source |
+|---|---|---|
+| Radiation | Career effective dose limit: < 600 mSv, all ages and sexes | [1] |
+| Radiation | ISS crews receive ~0.5 mSv/day; ~1 mSv/day or more projected beyond LEO | [2] |
+| Radiation | ISS dose 0.2–0.5 mSv/day; ~40–90 mSv per 6-month mission | [3] |
+| Exercise | ISS crews exercise ~2 hours a day on average | [4] |
+| Exercise | ~2 hours a day (2025 update) | [5] |
+| Sleep | Crews are scheduled for 8.5 h sleep (Spaceflight Actigraphy Study: 64 short-duration + 21 long-duration crewmembers, 7,421 nights) | [6] |
+| Sleep | Shuttle crews averaged ~6 h/day in space vs 7.9 h on Earth; 5–6 h/night impairs performance within a week | [7] |
+| Sleep | Astronauts are allotted ~8.5 h for sleep every day | [8] |
+| Hazards | Five hazards of spaceflight (RIDGE: Radiation, Isolation, Distance, Gravity, Environment) | [9] |
+| Hazards | 30+ human health risks tracked in a roadmap | [10] |
+| Hazards | Review of the highest-priority risks for a Mars mission | [11] |
+| Data | NASA Open Science Data Repository (OSDR) | [12] |
 
 > The HRP sleep report [7] does **not** state a flat "8 hours recommended". It says the average adult sleeps ~8.5 h when given extended sleep opportunity. Quote that instead if asked.
 
