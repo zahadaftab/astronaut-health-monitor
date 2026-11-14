@@ -1,6 +1,6 @@
 # 00 — How the new UI plugs into the app
 
-The step 20 redesign lives in its own files and plugs into `App.jsx` without changing its logic. The goal: teammates can keep changing logic and their own JSX without merge conflicts with the UI.
+The step 20 redesign lives in its own files and plugs into `App.jsx` without changing its logic. The goal: teammates can make changes to the logic and their own JSX without merge conflicts with the UI.
 
 ## Structure
 
