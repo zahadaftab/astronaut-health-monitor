@@ -111,6 +111,10 @@ function App() {
               <li key={index}>
                 <strong>{warning.type.toUpperCase()}</strong> —{" "}
                 {warning.message} ({warning.date})
+                <br />
+                <small>
+                  ⚠️ Hazard: {warning.hazard} — {warning.risk}
+                </small>
               </li>
             ))}
           </ul>
