@@ -13,6 +13,7 @@ function App() {
     mood: 3,
     exercise: "",
     heartRate: "",
+    radiationDose: "",
   });
 
   const [savedLogs, setSavedLogs] = useState(
@@ -33,7 +34,13 @@ function App() {
     localStorage.setItem("astronautLogs", JSON.stringify(updatedLogs));
     alert("🚀 Log Saved Successfully!");
     setSavedLogs(updatedLogs);
-    setFormData({ ...formData, sleep: "", exercise: "", heartRate: "" });
+    setFormData({
+      ...formData,
+      sleep: "",
+      exercise: "",
+      heartRate: "",
+      radiationDose: "",
+    });
   };
 
   return (
@@ -99,6 +106,22 @@ function App() {
               required
             />
           </div>
+          <div className="input-group">
+            <label>Daily Radiation Dose (mSv):</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              name="radiationDose"
+              value={formData.radiationDose}
+              onChange={handleChange}
+              placeholder="Enter radiation dose (optional)"
+            />
+            <small>
+              Records daily radiation exposure for monitoring purposes. Values
+              are recorded in millisieverts (mSv).
+            </small>
+          </div>
           <button type="submit" className="save-btn">
             Save Daily Log
           </button>
@@ -143,8 +166,10 @@ function App() {
                   {new Date(log.date).toLocaleDateString("en-GB")}
                 </strong>{" "}
                 | Sleep: {log.sleep}h | Mood: {log.mood}/5 | Exercise:{" "}
-                {log.exercise}m | HR: {log.heartRate}
-                bpm
+                {log.exercise}m | HR: {log.heartRate} bpm | Radiation:{" "}
+                {log.radiationDose
+                  ? `${log.radiationDose} mSv`
+                  : "Not recorded"}
               </li>
             ))}
           </ul>
