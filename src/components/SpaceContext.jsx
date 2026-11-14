@@ -120,7 +120,11 @@ const average = (nums) => nums.reduce((a, b) => a + b, 0) / nums.length;
 
 function evaluateMetric(key, logs) {
   const cfg = METRICS[key];
-  const values = logs.map((l) => Number(l[key])).filter(Number.isFinite);
+  const values = logs
+    .map((l) => l[key])
+    .filter((v) => v !== "" && v !== null && v !== undefined)
+    .map(Number)
+    .filter(Number.isFinite);
 
   if (values.length === 0) {
     return { level: "none", note: `${cfg.label}: no data yet` };
