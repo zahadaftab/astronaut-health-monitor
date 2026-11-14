@@ -130,6 +130,17 @@ function MetricsCharts({ logs = [] }) {
   return (
     <>
       <MetricChart
+        title="Sleep Trend"
+        subtitle="Daily sleep duration over time"
+        logs={logs}
+        metric="sleep"
+        label="Sleep Hours"
+        color="#38bdf8"
+        min={0}
+        max={12}
+        yTitle="Hours of Sleep"
+      />
+      <MetricChart
         title="Mood Trend"
         subtitle="Daily mood rating over time"
         logs={logs}

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import SleepTrendChart from "./components/SleepTrendChart";
 import { checkHealthWarnings } from "./utils/warningEngine.js";
 import HealthScoreCard from "./components/HealthScoreCard";
 import SpaceContext from "./components/SpaceContext.jsx";
@@ -32,14 +31,21 @@ function App() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Write logs to localStorage and state together.
+  const saveLogs = (updatedLogs) => {
+    localStorage.setItem("astronautLogs", JSON.stringify(updatedLogs));
+    setSavedLogs(updatedLogs);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const existingLogs =
-      JSON.parse(localStorage.getItem("astronautLogs")) || [];
-    const updatedLogs = [...existingLogs, formData];
-    localStorage.setItem("astronautLogs", JSON.stringify(updatedLogs));
-    alert("🚀 Log Saved Successfully!");
-    setSavedLogs(updatedLogs);
+    // One log per date: saving the same date again replaces the old log.
+    const replacing = savedLogs.some((log) => log.date === formData.date);
+    saveLogs([
+      ...savedLogs.filter((log) => log.date !== formData.date),
+      formData,
+    ]);
+    alert(replacing ? "🚀 Log Updated!" : "🚀 Log Saved Successfully!");
     setFormData({
       ...formData,
       sleep: "",
@@ -199,18 +205,21 @@ function App() {
                 {log.radiationDose
                   ? `${log.radiationDose} mSv`
                   : "Not recorded"}
+                {/* Demo data is read-only, so only real logs can be deleted */}
+                {!demoMode && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      saveLogs(savedLogs.filter((l) => l.date !== log.date))
+                    }
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Delete
+                  </button>
+                )}
               </li>
             ))}
           </ul>
-        )}
-      </div>
-
-      <div className="card" style={{ marginTop: "30px" }}>
-        <h2>Sleep Trend Graph</h2>
-        {logs.length === 0 ? (
-          <p>No data to show graph.</p>
-        ) : (
-          <SleepTrendChart logs={logs} />
         )}
       </div>
     </div>
