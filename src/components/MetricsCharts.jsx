@@ -42,7 +42,7 @@ function getLogDate(log) {
   return log?.date ?? log?.timestamp ?? log?.createdAt;
 }
 
-function MetricsChart({
+function MetricChart({
   title,
   subtitle,
   logs = [],
@@ -126,4 +126,41 @@ function MetricsChart({
   );
 }
 
-export default MetricsChart;
+function MetricsCharts({ logs = [] }) {
+  return (
+    <>
+      <MetricChart
+        title="Mood Trend"
+        subtitle="Daily mood rating over time"
+        logs={logs}
+        metric="mood"
+        label="Mood"
+        color="#66fcf1"
+        min={1}
+        max={5}
+        stepSize={1}
+        yTitle="Mood Rating"
+      />
+      <MetricChart
+        title="Exercise Trend"
+        subtitle="Daily exercise duration over time"
+        logs={logs}
+        metric="exercise"
+        label="Exercise"
+        color="#45a29e"
+        yTitle="Minutes"
+      />
+      <MetricChart
+        title="Heart Rate Trend"
+        subtitle="Daily resting heart rate over time"
+        logs={logs}
+        metric="heartRate"
+        label="Heart Rate"
+        color="#f87171"
+        yTitle="BPM"
+      />
+    </>
+  );
+}
+
+export default MetricsCharts;

@@ -5,6 +5,7 @@ import { checkHealthWarnings } from "./utils/warningEngine.js";
 import HealthScoreCard from "./components/HealthScoreCard";
 import SpaceContext from "./components/SpaceContext.jsx";
 import HazardTag from "./components/HazardTag";
+import MetricsCharts from "./components/MetricsCharts";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -128,7 +129,8 @@ function App() {
         </form>
       </div>
       <HealthScoreCard warnings={warnings} logs={savedLogs} />
-      <SpaceContext logs={savedLogs}/>
+      <SpaceContext logs={savedLogs} />
+      <MetricsCharts logs={savedLogs} />
       {/* Step 13: Health Warnings */}
       <div className="card" style={{ marginTop: "30px" }}>
         <h2>Health Warnings</h2>
