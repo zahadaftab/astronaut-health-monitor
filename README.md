@@ -22,7 +22,7 @@ Astronauts log four things once a day — **sleep, mood, exercise, heart rate**.
 - **Isolation & Confinement**: risk of compounding behavioral, and mental health issues during missions compromising performance
 - **Distance from Earth**: minimal support from teams on Earth leading to challenges as we explore further
 - **Gravity Fields**: multiple gravity fields that the body needs to adapt to which can lead to loss of bone density, lack of coordination, and complications with bodily fluids due to pressure changes
-- **Hostile/Close Environments**: challenge to maintain a safe ecosystem in an enclosed environment for extended periods
+- **Hostile/Closed Environments**: challenge to maintain a safe ecosystem in an enclosed environment for extended periods
 
 > What is hazard mapping and how do we connect it to the data?
 
@@ -41,6 +41,9 @@ npm run dev
 ```
 
 Stack: React + Vite, Chart.js, localStorage (no backend).
+
+## Credits ##
+
 
 ## References
 
